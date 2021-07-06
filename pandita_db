@@ -1,0 +1,74 @@
+#Base de datos pandita
+
+create database pandita;
+
+use pandita;
+
+create table usuarios (id_usuario int AUTO_INCREMENT, nombre varchar(100), paterno varchar(100), materno varchar(100), 
+                      telefono varchar(15), email varchar(50),hash varchar(100), fecha_registro datetime, 
+                      fecha_actualizacion datetime, activo bit, primary key (id_usuario));
+
+
+create table cuentas (id_cuenta int AUTO_INCREMENT, no_cuenta varchar(100), saldo decimal(15,2), fk_id_usuario int,
+                      fecha_registro datetime, fecha_actualizacion datetime, activo bit,
+                      primary key (id_cuenta));
+
+create table tipo (id_tipo int AUTO_INCREMENT, nombre varchar(100), fecha_registro datetime,fecha_actualizacion datetime,
+                   activo bit,primary key (id_tipo));
+
+create table movimientos (id_movimiento int AUTO_INCREMENT, movimiento varchar(100), importe decimal(10,2), fk_id_cuenta int, fecha_registro datetime,
+                          fecha_actualizacion datetime, activo bit,fk_id_tipo int,primary key (id_movimiento),
+                          constraint fk_c_m foreign key (fk_id_cuenta) references cuentas(id_cuenta) on delete cascade,
+                          constraint fk_m_t foreign key (fk_id_tipo) references tipo(id_tipo) on delete cascade);                           
+
+create user 'ksolis'@'localhost' identified by 'cnTsÑ9080.';
+
+GRANT ALL PRIVILEGES ON * . * TO 'ksolis'@'localhost';
+
+FLUSH PRIVILEGES;
+
+
+Instalación
+wget https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz
+
+sudo tar -xvf go1.14.2.linux-amd64.tar.gz -C /usr/local/
+
+export PATH=$PATH:/usr/local/go/bin
+
+source ~/.profile
+
+//compilar
+go build && ./pandita
+
+Repositorios
+go get golang.org/x/crypto/bcrypt
+
+//driver mysql 
+go get -u github.com/gorilla/mux
+go get -u github.com/go-sql-driver/mysql
+
+
+//Json agregar method post
+{
+	"nombre":"Karla",
+	 "paterno":"Solis",
+	 "materno":"Limon",
+	 "telefono":"3345678123",
+	 "email":"limonsito.kls@hotmail.com",
+	 "password":"secret"
+}
+
+//Json update method put 
+{
+	"nombre":"Mariana",
+	 "paterno":"Solis",
+	 "materno":"Herrera",
+	 "telefono":"3345678123"
+}
+
+
+
+
+
+
+

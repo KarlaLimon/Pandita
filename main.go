@@ -47,7 +47,12 @@ type Datos struct {
 }
 
 type Deposito struct {
+	id_usuario string `json:"id_usuario"`
+	nombre    string `json:"nombre"`
+	paterno    string `json:"paterno"`
+	materno    string `json:"materno"`
 	importe    string `json:"importe"`
+	no_cuenta  string `json:"no_cuenta"`
 }
 
 var db *sql.DB
@@ -70,7 +75,6 @@ func main() {
 	router.HandleFunc("/posts/{id_usuario}", getMovUser).Methods("GET")
 	router.HandleFunc("/posts/{id_usuario}", updateUsuario).Methods("PUT")
 	router.HandleFunc("/posts/{id_usuario}", deleteUsuario).Methods("DELETE")
-	router.HandleFunc("/transferencia/{id_usuario}", transferencia).Methods("POST")
 	http.ListenAndServe(":8000", router)
 }
 
@@ -235,3 +239,5 @@ func createRand() int {
 	cuenta += randomInt(10000000, 99999999)
 	return cuenta
 }
+
+

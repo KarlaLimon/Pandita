@@ -34,27 +34,6 @@ type Movimientos struct {
 	importe       string `json:"importe"`
 }
 
-type Transferencia struct {
-	id_usuario        string `json:"id_usuario"`
-	importe           string `json:"importe"`
-	no_cuenta_destino string `json:"no_cuenta_destino"`
-}
-
-type Datos struct {
-	id_usuario        string `json:"id_usuario"`
-	saldo             string `json:"saldo"`
-	id_cuenta         string `json:"no_cuenta"`
-}
-
-type Deposito struct {
-	id_usuario string `json:"id_usuario"`
-	nombre    string `json:"nombre"`
-	paterno    string `json:"paterno"`
-	materno    string `json:"materno"`
-	importe    string `json:"importe"`
-	no_cuenta  string `json:"no_cuenta"`
-}
-
 var db *sql.DB
 var err error
 
